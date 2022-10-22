@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  beersales.api:
+    image: ${DOCKER_REGISTRY-}beersalesapi
+    build:
+      context: .
+      dockerfile: BeerSales.Api/Dockerfile
