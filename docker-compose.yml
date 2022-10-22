@@ -6,3 +6,6 @@ services:
     build:
       context: .
       dockerfile: BeerSales.Api/Dockerfile
+      
+  beersales.db:
+    image: mcr.microsoft.com/mssql/server:2019-latest 

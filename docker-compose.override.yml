@@ -3,6 +3,7 @@ version: '3.4'
 services:
   beersales.api:
     environment:
+      - ConnectionStrings__BeerSaleDb=Server=127.0.0.1,5433;Database=BeerSales;User Id=sa;Password=Pass@word
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
@@ -11,3 +12,16 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+            
+  beersales.db:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+    volumes:
+      - beersales-sqldata:/var/opt/mssql
+
+volumes:
+  beersales-sqldata:
+    external: false
