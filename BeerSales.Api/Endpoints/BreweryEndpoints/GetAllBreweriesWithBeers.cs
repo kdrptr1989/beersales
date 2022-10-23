@@ -1,23 +1,21 @@
 ﻿using BeerSales.Api.Interface;
 using BeerSales.Core.Beers.Queries.GetAllBreweriesWithBeers;
-using BeerSales.Core.Beers.Queries.GetAllBreweriesWithBeers.Dto;
 using MediatR;
-using Microsoft.AspNetCore.Components;
 
-namespace BeerSales.Api.Endpoints.BeerEndpoints
+namespace BeerSales.Api.Endpoints.BreweryEndpoints
 {
     public class GetAllBreweriesWithBeers : IEndpoint
     {
-        public const string Route = $"{EndpointConstant.BaseRoute}/getAllBeersByBeweries";
+        public const string Route = $"{EndpointConstant.BaseRoute}/GetAllBreweriesWithBeers";
 
         public static void DefineEndpoint(IEndpointRouteBuilder builder)
         {
-            builder.MapGet(Route, GetAllByBreweriesAsync)
-                .Produces<List<BeweriesDto>>()
+            builder.MapGet(Route, GetAllBreweriesWithBeersAsync)
+                .Produces<GetAllBreweriesWithBeersResponse>()
                 .WithTags(EndpointConstant.Tag);
         }
 
-        private static async Task<IResult> GetAllByBreweriesAsync(IMediator mediator, int pageNumber, int sizeNumber)
+        private static async Task<IResult> GetAllBreweriesWithBeersAsync(IMediator mediator, int pageNumber, int sizeNumber)
         {
             var response = await mediator.Send(new GetAllBreweriesWithBeersQuery
             {
