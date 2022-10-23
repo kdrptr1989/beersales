@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSales.Api", "BeerSales.Api\BeerSales.Api.csproj", "{5C549615-60E0-42E0-9380-35095D3F6C3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerSales.Api", "BeerSales.Api\BeerSales.Api.csproj", "{5C549615-60E0-42E0-9380-35095D3F6C3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSales.Domain", "BeerSales.Domain\BeerSales.Domain.csproj", "{E432BA76-B90B-4426-962E-009F281D01EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerSales.Domain", "BeerSales.Domain\BeerSales.Domain.csproj", "{E432BA76-B90B-4426-962E-009F281D01EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSales.Infrastructure", "BeerSales.Infrastructure\BeerSales.Infrastructure.csproj", "{63481EFF-D192-4D32-80FB-D6623EA4B449}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerSales.Infrastructure", "BeerSales.Infrastructure\BeerSales.Infrastructure.csproj", "{63481EFF-D192-4D32-80FB-D6623EA4B449}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5DD5BAD0-AD68-46F3-BE9B-E59559ABC399}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C46476D0-0F9A-475B-8B95-6773705A9550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSales.Core", "..\BeerSales.Core\BeerSales.Core.csproj", "{1F421909-2978-46BF-AABB-63A3359D7811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{C46476D0-0F9A-475B-8B95-6773705A9550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C46476D0-0F9A-475B-8B95-6773705A9550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C46476D0-0F9A-475B-8B95-6773705A9550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F421909-2978-46BF-AABB-63A3359D7811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F421909-2978-46BF-AABB-63A3359D7811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F421909-2978-46BF-AABB-63A3359D7811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F421909-2978-46BF-AABB-63A3359D7811}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{5C549615-60E0-42E0-9380-35095D3F6C3E} = {5DD5BAD0-AD68-46F3-BE9B-E59559ABC399}
 		{E432BA76-B90B-4426-962E-009F281D01EC} = {5DD5BAD0-AD68-46F3-BE9B-E59559ABC399}
 		{63481EFF-D192-4D32-80FB-D6623EA4B449} = {5DD5BAD0-AD68-46F3-BE9B-E59559ABC399}
+		{1F421909-2978-46BF-AABB-63A3359D7811} = {5DD5BAD0-AD68-46F3-BE9B-E59559ABC399}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DEDB543A-72B8-449F-A06A-325256884FFE}

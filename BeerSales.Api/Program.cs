@@ -1,12 +1,29 @@
+using BeerSales.Api;
+using BeerSales.Core.Beers.Queries.GetAllBreweriesWithBeers;
 using BeerSales.Infrastructure.Data;
+using BeerSales.Infrastructure.Interfaces;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddMediatR(typeof(GetAllBreweriesWithBeersQueryHandler).GetTypeInfo().Assembly);
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var connectionString = builder.Configuration.GetConnectionString("BeerSaleDbContext");
-builder.Services.AddSqlServer<BeerSaleDbContext>(connectionString);
+
+builder.Services.AddDbContext<BeerSaleDbContext>(options =>
+              options.UseSqlServer(connectionString,
+                  builder => builder.MigrationsAssembly(typeof(BeerSaleDbContext).Assembly.FullName)));
+
+builder.Services.AddScoped<IBeerSalesDbContext>(provider => provider.GetRequiredService<BeerSaleDbContext>());
 
 var app = builder.Build();
+app.UseWeb(builder.Configuration);
+app.UseHttpsRedirection();
 
 await EnsureDbAsync(app.Services);
 
