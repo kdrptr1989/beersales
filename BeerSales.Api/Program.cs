@@ -4,6 +4,7 @@ using BeerSales.Infrastructure.Data;
 using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMediatR(typeof(GetAllBreweriesWithBeersQueryHandler).GetTypeInfo().Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomSchemaIds(type => type.ToString());
+});
 
 var connectionString = builder.Configuration.GetConnectionString("BeerSaleDbContext");
 

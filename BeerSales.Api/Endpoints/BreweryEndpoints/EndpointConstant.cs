@@ -1,4 +1,4 @@
-﻿namespace BeerSales.Api.Endpoints.BeerEndpoints
+﻿namespace BeerSales.Api.Endpoints.BreweryEndpoints
 {
     public class EndpointConstant
     {
