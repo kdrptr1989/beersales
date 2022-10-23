@@ -1,4 +1,4 @@
-﻿using BeerSales.Domain.Models;
+﻿using BeerSales.Domain.Entities;
 
 namespace BeerSales.Infrastructure
 {

@@ -1,19 +1,20 @@
-﻿using BeerSales.Domain.Models;
+﻿using BeerSales.Domain.Entities;
+using BeerSales.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeerSales.Infrastructure.Data
 {
-    public class BeerSaleDbContext : DbContext
+    public class BeerSaleDbContext : DbContext, IBeerSalesDbContext
     {
         public BeerSaleDbContext() { }
 
         public BeerSaleDbContext(DbContextOptions<BeerSaleDbContext> options) : base(options) { }
 
-        public DbSet<Brewery> Breweries { get; set; }
-        public DbSet<Beer> Beers { get; set; }
-        public DbSet<Wholesaler> Wholesalers { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Brewery> Breweries => Set<Brewery>();
+        public DbSet<Beer> Beers => Set<Beer>();
+        public DbSet<Wholesaler> Wholesalers => Set<Wholesaler>();
+        public DbSet<Stock> Stocks => Set<Stock>();
+        public DbSet<Discount> Discounts => Set<Discount>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,4 +1,4 @@
-﻿namespace BeerSales.Domain.Models;
+﻿namespace BeerSales.Domain.Entities;
 
 public record Brewery(Guid Id, string Name)
 {
