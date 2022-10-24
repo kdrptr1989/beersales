@@ -15,7 +15,7 @@ namespace BeerSales.Infrastructure.Data
         public DbSet<Wholesaler> Wholesalers => Set<Wholesaler>();
         public DbSet<Stock> Stocks => Set<Stock>();
         public DbSet<Discount> Discounts => Set<Discount>();
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Brewery>().HasData(Seed.Breweries);

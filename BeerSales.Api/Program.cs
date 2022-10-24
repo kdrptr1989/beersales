@@ -4,7 +4,6 @@ using BeerSales.Infrastructure.Data;
 using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,10 +17,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var connectionString = builder.Configuration.GetConnectionString("BeerSaleDbContext");
-
-builder.Services.AddDbContext<BeerSaleDbContext>(options =>
-              options.UseSqlServer(connectionString,
-                  builder => builder.MigrationsAssembly(typeof(BeerSaleDbContext).Assembly.FullName)));
+builder.Services.AddSqlServer<BeerSaleDbContext>(connectionString);
 
 builder.Services.AddScoped<IBeerSalesDbContext>(provider => provider.GetRequiredService<BeerSaleDbContext>());
 

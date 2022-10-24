@@ -4,7 +4,6 @@ using BeerSales.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,10 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeerSales.Infrastructure.Migrations
 {
     [DbContext(typeof(BeerSaleDbContext))]
-    [Migration("20221022165459_Init")]
-    partial class Init
+    partial class BeerSaleDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +22,7 @@ namespace BeerSales.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Beer", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Beer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,34 +54,34 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"),
+                            Id = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
                             AlcoholContent = 6.6m,
-                            BreweryId = new Guid("e8a16727-5972-44f9-a812-0498ef378c2e"),
+                            BreweryId = new Guid("f1b76026-c4a7-4cb7-9b71-dda1e1df49f5"),
                             Currency = "EUR",
                             Name = "Leffe Blonde",
                             Price = 2.3m
                         },
                         new
                         {
-                            Id = new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"),
+                            Id = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
                             AlcoholContent = 4.5m,
-                            BreweryId = new Guid("af8b997f-d49c-475d-8aaa-ca46ad922892"),
+                            BreweryId = new Guid("64d3ad32-d588-41c9-af1e-6b79fc92592c"),
                             Currency = "EUR",
                             Name = "Heineken Silver",
                             Price = 1.5m
                         },
                         new
                         {
-                            Id = new Guid("40ea0b13-9729-4f40-a54f-25c77c9b550a"),
+                            Id = new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"),
                             AlcoholContent = 5.6m,
-                            BreweryId = new Guid("14806c4b-8571-4f76-a47e-564ab3b2c3df"),
+                            BreweryId = new Guid("844ee1af-f882-4b35-85b9-6916f288432c"),
                             Currency = "EUR",
                             Name = "Guinness Draught",
                             Price = 2.6m
                         });
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Brewery", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Brewery", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,63 +98,53 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e8a16727-5972-44f9-a812-0498ef378c2e"),
+                            Id = new Guid("f1b76026-c4a7-4cb7-9b71-dda1e1df49f5"),
                             Name = "Abbaye de Leffe"
                         },
                         new
                         {
-                            Id = new Guid("af8b997f-d49c-475d-8aaa-ca46ad922892"),
+                            Id = new Guid("64d3ad32-d588-41c9-af1e-6b79fc92592c"),
                             Name = "Heineken"
                         },
                         new
                         {
-                            Id = new Guid("14806c4b-8571-4f76-a47e-564ab3b2c3df"),
+                            Id = new Guid("844ee1af-f882-4b35-85b9-6916f288432c"),
                             Name = "Gunniess"
                         });
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Discount", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Discount", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("DiscountType")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("DiscountValue")
+                    b.Property<decimal>("DiscountPercentage")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("TierFrom")
                         .HasColumnType("int");
 
-                    b.Property<int>("TierTo")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Discounts");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4bb7d642-632b-4c31-8c42-3efdb0829d54"),
-                            DiscountType = 0,
-                            DiscountValue = 10m,
-                            TierFrom = 11,
-                            TierTo = 20
+                            id = new Guid("0babea85-7d1f-4d57-aa17-06906215d6ed"),
+                            DiscountPercentage = 10m,
+                            TierFrom = 11
                         },
                         new
                         {
-                            Id = new Guid("bdabd67a-ab3f-4158-bb88-e6ead30e76ad"),
-                            DiscountType = 0,
-                            DiscountValue = 20m,
-                            TierFrom = 21,
-                            TierTo = 29
+                            id = new Guid("a56c5ce6-1892-4c4a-92ea-b4c705fcb737"),
+                            DiscountPercentage = 20m,
+                            TierFrom = 21
                         });
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Stock", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Stock", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -182,63 +170,63 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("464d6963-9a40-41cd-a22c-0a59daf94b9b"),
-                            BeerId = new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"),
+                            Id = new Guid("d8ebd9e9-c83a-4c24-b264-22fa580ea1a0"),
+                            BeerId = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
                             Quantity = 100,
-                            WholesalerId = new Guid("6512a761-b061-48b0-a576-0f12f93b6f03")
+                            WholesalerId = new Guid("ce22239c-17af-4330-833d-3040f13773a9")
                         },
                         new
                         {
-                            Id = new Guid("834420f9-5176-489b-a3b7-825e79ad7b56"),
-                            BeerId = new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"),
+                            Id = new Guid("b9b7c9f5-43ed-42b7-8d62-9e6abf73405a"),
+                            BeerId = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
                             Quantity = 50,
-                            WholesalerId = new Guid("6512a761-b061-48b0-a576-0f12f93b6f03")
+                            WholesalerId = new Guid("ce22239c-17af-4330-833d-3040f13773a9")
                         },
                         new
                         {
-                            Id = new Guid("f0934390-38fe-45fc-bdfd-1b1cb8d15c71"),
-                            BeerId = new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"),
+                            Id = new Guid("a58c6e9c-7328-47fc-91c2-b5019d10e9fe"),
+                            BeerId = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
                             Quantity = 30,
-                            WholesalerId = new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28")
+                            WholesalerId = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e")
                         },
                         new
                         {
-                            Id = new Guid("805cc87b-1842-46e0-89a4-9478d650acd5"),
-                            BeerId = new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"),
+                            Id = new Guid("1e4e36b4-6e0e-436b-bfa9-bddacd7e00de"),
+                            BeerId = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
                             Quantity = 200,
-                            WholesalerId = new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28")
+                            WholesalerId = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e")
                         },
                         new
                         {
-                            Id = new Guid("57a016ee-4ca4-411a-8874-f9e2daf8b9b8"),
-                            BeerId = new Guid("40ea0b13-9729-4f40-a54f-25c77c9b550a"),
+                            Id = new Guid("2afdf137-86ff-4ea3-a138-52a12b3d4fea"),
+                            BeerId = new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"),
                             Quantity = 70,
-                            WholesalerId = new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28")
+                            WholesalerId = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e")
                         },
                         new
                         {
-                            Id = new Guid("4d358bdd-d88d-4913-8e00-290a0e476f5f"),
-                            BeerId = new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"),
+                            Id = new Guid("d7ce00e3-5225-41c2-854a-1ce71a02999b"),
+                            BeerId = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
                             Quantity = 300,
-                            WholesalerId = new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712")
+                            WholesalerId = new Guid("214d5662-1051-40c3-95af-926fc66a3032")
                         },
                         new
                         {
-                            Id = new Guid("4d974e72-c2f3-4df0-b1aa-ee275517cbec"),
-                            BeerId = new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"),
+                            Id = new Guid("5c1a5bea-7eda-4a98-8c9e-43b8d6c80b8f"),
+                            BeerId = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
                             Quantity = 20,
-                            WholesalerId = new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712")
+                            WholesalerId = new Guid("214d5662-1051-40c3-95af-926fc66a3032")
                         },
                         new
                         {
-                            Id = new Guid("66429f25-89cd-45cc-b5e1-b33c1953e2e5"),
-                            BeerId = new Guid("40ea0b13-9729-4f40-a54f-25c77c9b550a"),
+                            Id = new Guid("46b9645d-d44f-4797-afeb-411c1eeaf933"),
+                            BeerId = new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"),
                             Quantity = 40,
-                            WholesalerId = new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712")
+                            WholesalerId = new Guid("214d5662-1051-40c3-95af-926fc66a3032")
                         });
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Wholesaler", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Wholesaler", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -255,24 +243,24 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6512a761-b061-48b0-a576-0f12f93b6f03"),
+                            Id = new Guid("ce22239c-17af-4330-833d-3040f13773a9"),
                             Name = "GeneDrinks"
                         },
                         new
                         {
-                            Id = new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28"),
+                            Id = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e"),
                             Name = "AllBeerSales"
                         },
                         new
                         {
-                            Id = new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712"),
+                            Id = new Guid("214d5662-1051-40c3-95af-926fc66a3032"),
                             Name = "Forever Beer"
                         });
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Beer", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Beer", b =>
                 {
-                    b.HasOne("BeerSales.Domain.Models.Brewery", "Brewery")
+                    b.HasOne("BeerSales.Domain.Entities.Brewery", "Brewery")
                         .WithMany("Beers")
                         .HasForeignKey("BreweryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,15 +269,15 @@ namespace BeerSales.Infrastructure.Migrations
                     b.Navigation("Brewery");
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Stock", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Stock", b =>
                 {
-                    b.HasOne("BeerSales.Domain.Models.Beer", "Beer")
+                    b.HasOne("BeerSales.Domain.Entities.Beer", "Beer")
                         .WithMany("Stocks")
                         .HasForeignKey("BeerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BeerSales.Domain.Models.Wholesaler", "Wholesaler")
+                    b.HasOne("BeerSales.Domain.Entities.Wholesaler", "Wholesaler")
                         .WithMany("Stocks")
                         .HasForeignKey("WholesalerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -300,17 +288,17 @@ namespace BeerSales.Infrastructure.Migrations
                     b.Navigation("Wholesaler");
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Beer", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Beer", b =>
                 {
                     b.Navigation("Stocks");
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Brewery", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Brewery", b =>
                 {
                     b.Navigation("Beers");
                 });
 
-            modelBuilder.Entity("BeerSales.Domain.Models.Wholesaler", b =>
+            modelBuilder.Entity("BeerSales.Domain.Entities.Wholesaler", b =>
                 {
                     b.Navigation("Stocks");
                 });
