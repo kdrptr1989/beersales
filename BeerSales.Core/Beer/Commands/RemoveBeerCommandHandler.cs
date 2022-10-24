@@ -23,11 +23,7 @@ namespace BeerSales.Core.Beer.Commands
 
                 if (removeAbleBeer is null)
                 {
-                    return new RemoveBeerResponse
-                    {
-                        Success = false,
-                        ErrorMessage = "Item not found"
-                    };
+                    throw new Exception("Beer with Brewery doesn't exists");
                 }
 
                 _dbContext.Beers.Remove(removeAbleBeer);
