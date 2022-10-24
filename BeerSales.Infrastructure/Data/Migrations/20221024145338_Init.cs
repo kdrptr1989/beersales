@@ -25,15 +25,13 @@ namespace BeerSales.Infrastructure.Migrations
                 name: "Discounts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TierFrom = table.Column<int>(type: "int", nullable: false),
-                    TierTo = table.Column<int>(type: "int", nullable: false),
-                    DiscountValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DiscountType = table.Column<int>(type: "int", nullable: false)
+                    DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discounts", x => x.Id);
+                    table.PrimaryKey("PK_Discounts", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,18 +99,18 @@ namespace BeerSales.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("14806c4b-8571-4f76-a47e-564ab3b2c3df"), "Gunniess" },
-                    { new Guid("af8b997f-d49c-475d-8aaa-ca46ad922892"), "Heineken" },
-                    { new Guid("e8a16727-5972-44f9-a812-0498ef378c2e"), "Abbaye de Leffe" }
+                    { new Guid("64d3ad32-d588-41c9-af1e-6b79fc92592c"), "Heineken" },
+                    { new Guid("844ee1af-f882-4b35-85b9-6916f288432c"), "Gunniess" },
+                    { new Guid("f1b76026-c4a7-4cb7-9b71-dda1e1df49f5"), "Abbaye de Leffe" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Discounts",
-                columns: new[] { "Id", "DiscountType", "DiscountValue", "TierFrom", "TierTo" },
+                columns: new[] { "id", "DiscountPercentage", "TierFrom" },
                 values: new object[,]
                 {
-                    { new Guid("4bb7d642-632b-4c31-8c42-3efdb0829d54"), 0, 10m, 11, 20 },
-                    { new Guid("bdabd67a-ab3f-4158-bb88-e6ead30e76ad"), 0, 20m, 21, 29 }
+                    { new Guid("0babea85-7d1f-4d57-aa17-06906215d6ed"), 10m, 11 },
+                    { new Guid("a56c5ce6-1892-4c4a-92ea-b4c705fcb737"), 20m, 21 }
                 });
 
             migrationBuilder.InsertData(
@@ -120,39 +118,39 @@ namespace BeerSales.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28"), "AllBeerSales" },
-                    { new Guid("6512a761-b061-48b0-a576-0f12f93b6f03"), "GeneDrinks" },
-                    { new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712"), "Forever Beer" }
+                    { new Guid("214d5662-1051-40c3-95af-926fc66a3032"), "Forever Beer" },
+                    { new Guid("ce22239c-17af-4330-833d-3040f13773a9"), "GeneDrinks" },
+                    { new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e"), "AllBeerSales" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Beers",
                 columns: new[] { "Id", "AlcoholContent", "BreweryId", "Currency", "Name", "Price" },
-                values: new object[] { new Guid("40ea0b13-9729-4f40-a54f-25c77c9b550a"), 5.6m, new Guid("14806c4b-8571-4f76-a47e-564ab3b2c3df"), "EUR", "Guinness Draught", 2.6m });
+                values: new object[] { new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"), 4.5m, new Guid("64d3ad32-d588-41c9-af1e-6b79fc92592c"), "EUR", "Heineken Silver", 1.5m });
 
             migrationBuilder.InsertData(
                 table: "Beers",
                 columns: new[] { "Id", "AlcoholContent", "BreweryId", "Currency", "Name", "Price" },
-                values: new object[] { new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"), 4.5m, new Guid("af8b997f-d49c-475d-8aaa-ca46ad922892"), "EUR", "Heineken Silver", 1.5m });
+                values: new object[] { new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"), 6.6m, new Guid("f1b76026-c4a7-4cb7-9b71-dda1e1df49f5"), "EUR", "Leffe Blonde", 2.3m });
 
             migrationBuilder.InsertData(
                 table: "Beers",
                 columns: new[] { "Id", "AlcoholContent", "BreweryId", "Currency", "Name", "Price" },
-                values: new object[] { new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"), 6.6m, new Guid("e8a16727-5972-44f9-a812-0498ef378c2e"), "EUR", "Leffe Blonde", 2.3m });
+                values: new object[] { new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"), 5.6m, new Guid("844ee1af-f882-4b35-85b9-6916f288432c"), "EUR", "Guinness Draught", 2.6m });
 
             migrationBuilder.InsertData(
                 table: "Stocks",
                 columns: new[] { "Id", "BeerId", "Quantity", "WholesalerId" },
                 values: new object[,]
                 {
-                    { new Guid("464d6963-9a40-41cd-a22c-0a59daf94b9b"), new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"), 100, new Guid("6512a761-b061-48b0-a576-0f12f93b6f03") },
-                    { new Guid("4d358bdd-d88d-4913-8e00-290a0e476f5f"), new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"), 300, new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712") },
-                    { new Guid("4d974e72-c2f3-4df0-b1aa-ee275517cbec"), new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"), 20, new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712") },
-                    { new Guid("57a016ee-4ca4-411a-8874-f9e2daf8b9b8"), new Guid("40ea0b13-9729-4f40-a54f-25c77c9b550a"), 70, new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28") },
-                    { new Guid("66429f25-89cd-45cc-b5e1-b33c1953e2e5"), new Guid("40ea0b13-9729-4f40-a54f-25c77c9b550a"), 40, new Guid("c8d5de6a-4c8a-4050-8850-aa14ca162712") },
-                    { new Guid("805cc87b-1842-46e0-89a4-9478d650acd5"), new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"), 200, new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28") },
-                    { new Guid("834420f9-5176-489b-a3b7-825e79ad7b56"), new Guid("87d8fa10-335b-4cd1-b9fb-fa601f35d478"), 50, new Guid("6512a761-b061-48b0-a576-0f12f93b6f03") },
-                    { new Guid("f0934390-38fe-45fc-bdfd-1b1cb8d15c71"), new Guid("d45a1fb6-571c-49a8-ab84-295673486c30"), 30, new Guid("0de53695-0ce5-4b2f-ad8c-e7b60c9d8b28") }
+                    { new Guid("1e4e36b4-6e0e-436b-bfa9-bddacd7e00de"), new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"), 200, new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e") },
+                    { new Guid("2afdf137-86ff-4ea3-a138-52a12b3d4fea"), new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"), 70, new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e") },
+                    { new Guid("46b9645d-d44f-4797-afeb-411c1eeaf933"), new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"), 40, new Guid("214d5662-1051-40c3-95af-926fc66a3032") },
+                    { new Guid("5c1a5bea-7eda-4a98-8c9e-43b8d6c80b8f"), new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"), 20, new Guid("214d5662-1051-40c3-95af-926fc66a3032") },
+                    { new Guid("a58c6e9c-7328-47fc-91c2-b5019d10e9fe"), new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"), 30, new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e") },
+                    { new Guid("b9b7c9f5-43ed-42b7-8d62-9e6abf73405a"), new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"), 50, new Guid("ce22239c-17af-4330-833d-3040f13773a9") },
+                    { new Guid("d7ce00e3-5225-41c2-854a-1ce71a02999b"), new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"), 300, new Guid("214d5662-1051-40c3-95af-926fc66a3032") },
+                    { new Guid("d8ebd9e9-c83a-4c24-b264-22fa580ea1a0"), new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"), 100, new Guid("ce22239c-17af-4330-833d-3040f13773a9") }
                 });
 
             migrationBuilder.CreateIndex(

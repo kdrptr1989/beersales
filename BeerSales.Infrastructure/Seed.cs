@@ -71,8 +71,8 @@ namespace BeerSales.Infrastructure
 
         internal static Discount[] Discounts =
         {
-            new ( Guid.NewGuid(), 11, 20, 10, 0 ),
-            new ( Guid.NewGuid(), 21, 29, 20, 0 )
+            new ( Guid.NewGuid(), 11, 10),
+            new ( Guid.NewGuid(), 21, 20)
         };
 
         #endregion
