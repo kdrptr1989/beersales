@@ -5,6 +5,7 @@ using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +19,8 @@ builder.Services.AddSwaggerGen(options =>
 
 var connectionString = builder.Configuration.GetConnectionString("BeerSaleDbContext");
 builder.Services.AddSqlServer<BeerSaleDbContext>(connectionString);
-
 builder.Services.AddScoped<IBeerSalesDbContext>(provider => provider.GetRequiredService<BeerSaleDbContext>());
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
 app.UseWeb(builder.Configuration);

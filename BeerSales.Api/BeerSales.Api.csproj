@@ -20,6 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
@@ -33,10 +34,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BeerSales.Core\BeerSales.Core.csproj" />
     <ProjectReference Include="..\BeerSales.Infrastructure\BeerSales.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Endpoints\OrderEndpoints\" />
   </ItemGroup>
 
 </Project>

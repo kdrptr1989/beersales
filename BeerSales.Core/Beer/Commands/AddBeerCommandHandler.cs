@@ -1,23 +1,29 @@
-﻿using BeerSales.Core.Stock.Commands;
-using BeerSales.Infrastructure.Interfaces;
+﻿using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BeerSales.Core.Beer.Commands
 {
     public class AddBeerCommandHandler : IRequestHandler<AddBeerCommand, AddBeerResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
+        private readonly ILogger<AddBeerCommandHandler> _logger;
 
-        public AddBeerCommandHandler(IBeerSalesDbContext context)
+        public AddBeerCommandHandler(
+            IBeerSalesDbContext context,
+            ILogger<AddBeerCommandHandler> logger)
         {
             _dbContext = context;
+            _logger = logger;
         }
 
         public async Task<AddBeerResponse> Handle(AddBeerCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                _logger.Log(LogLevel.Information, $"{nameof(AddBeerCommand)} is called");
+
                 await ValidateRequest(request, cancellationToken);
 
                 var beerEntity = new Domain.Entities.Beer(
@@ -32,6 +38,8 @@ namespace BeerSales.Core.Beer.Commands
                 _dbContext.Beers.Add(beerEntity);
                 await _dbContext.SaveChangesAsync(cancellationToken);
 
+                _logger.Log(LogLevel.Information, $"New {nameof(Beer)} entity is saved. Id of the new entity: {beerEntity.Id} ");
+
                 return new AddBeerResponse
                 {
                     Success = true,
@@ -40,11 +48,12 @@ namespace BeerSales.Core.Beer.Commands
             }
             catch (Exception ex)
             {
-                // TODO logging
+                _logger.LogError(ex, $"Problem during {nameof(AddBeerCommand)} saving.");             
+
                 return new AddBeerResponse
                 {
                     Success = false,
-                    ErrorMessage = $"Exception message: " + ex.Message + " Inner exception: " + ex.InnerException
+                    ErrorMessage = $"Exception message: " + ex.Message
                 };
             }
         }

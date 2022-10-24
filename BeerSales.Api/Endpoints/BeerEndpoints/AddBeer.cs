@@ -1,5 +1,6 @@
 ﻿using BeerSales.Api.Interface;
 using BeerSales.Core.Beer.Commands;
+using FluentValidation;
 using MediatR;
 
 namespace BeerSales.Api.Endpoints.BeerEndpoints
@@ -15,9 +16,19 @@ namespace BeerSales.Api.Endpoints.BeerEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
-        private static async Task<IResult> AddBeerAsync(IMediator mediator, AddBeerCommand command)
+        private static async Task<IResult> AddBeerAsync(
+            IMediator mediator, 
+            AddBeerCommand command,
+            IValidator<AddBeerCommand> validator,
+            CancellationToken cancellationToken)
         {
-            var response = await mediator.Send(command);
+            var validationResult = await validator.ValidateAsync(command);
+            if (!validationResult.IsValid)
+            {
+                return Results.BadRequest(validationResult.Errors);
+            }
+
+            var response = await mediator.Send(command, cancellationToken);
 
             return response.Success ? Results.Ok(response) : Results.BadRequest(response);
         }

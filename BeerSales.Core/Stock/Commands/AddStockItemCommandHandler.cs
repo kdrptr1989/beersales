@@ -1,22 +1,31 @@
-﻿using BeerSales.Infrastructure.Interfaces;
+﻿using BeerSales.Core.Beer.Commands;
+using BeerSales.Core.Order.Commands.CreateQuote;
+using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BeerSales.Core.Stock.Commands
 {
     public class AddStockItemCommandHandler : IRequestHandler<AddStockItemCommand, AddStockItemResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
+        private readonly ILogger<AddStockItemCommandHandler> _logger;
 
-        public AddStockItemCommandHandler(IBeerSalesDbContext context)
+        public AddStockItemCommandHandler(
+            IBeerSalesDbContext context,
+            ILogger<AddStockItemCommandHandler> logger)
         {
             _dbContext = context;
+            _logger = logger;
         }
 
         public async Task<AddStockItemResponse> Handle(AddStockItemCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                _logger.Log(LogLevel.Information, $"{nameof(AddStockItemCommand)} is called");
+
                 await ValidateRequest(request, cancellationToken);
 
                 var existingStock = _dbContext
@@ -33,6 +42,9 @@ namespace BeerSales.Core.Stock.Commands
                        DateTime.UtcNow);
 
                     _dbContext.Stocks.Update(updatedStockEntity);
+
+                    _logger.Log(LogLevel.Information, $"{nameof(updatedStockEntity)} entity is updated. Id of the updated entity: {existingStock.Id} ");
+
                 }
                 else
                 {
@@ -44,6 +56,8 @@ namespace BeerSales.Core.Stock.Commands
                         default);
 
                     _dbContext.Stocks.Add(stockEntity);
+
+                    _logger.Log(LogLevel.Information, $"{nameof(Stock)} entity is updated. Id of the created entity: {stockEntity.Id} ");
                 }
 
                 await _dbContext.SaveChangesAsync(cancellationToken);
@@ -55,11 +69,12 @@ namespace BeerSales.Core.Stock.Commands
             }
             catch (Exception ex)
             {
-                // TODO logging
+                _logger.LogError(ex, $"Problem during {nameof(AddStockItemCommand)} updated or created stock item.");
+
                 return new AddStockItemResponse
                 {
                     Success = false,
-                    ErrorMessage = $"Exception message: " + ex.Message + " Inner exception: " + ex.InnerException
+                    ErrorMessage = $"Exception message: " + ex.Message
                 };
             }
         }

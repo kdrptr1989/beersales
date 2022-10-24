@@ -1,23 +1,29 @@
-﻿using BeerSales.Core.Order.Commands.CreateOrder;
-using BeerSales.Infrastructure.Interfaces;
+﻿using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BeerSales.Core.Stock.Commands
 {
     public class UpdateStockCommandHandler : IRequestHandler<UpdateStockCommand, UpdateStockResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
+        private readonly ILogger<UpdateStockCommandHandler> _logger;
 
-        public UpdateStockCommandHandler(IBeerSalesDbContext context)
+        public UpdateStockCommandHandler(
+            IBeerSalesDbContext context,
+            ILogger<UpdateStockCommandHandler> logger)
         {
             _dbContext = context;
+            _logger = logger;
         }
 
         public async Task<UpdateStockResponse> Handle(UpdateStockCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                _logger.Log(LogLevel.Information, $"{nameof(UpdateStockCommand)} is called");
+
                 await ValidateRequest(request, cancellationToken);
 
                 var stockEntity = new Domain.Entities.Stock(
@@ -30,6 +36,8 @@ namespace BeerSales.Core.Stock.Commands
                 _dbContext.Stocks.Update(stockEntity);
                 await _dbContext.SaveChangesAsync(cancellationToken);
 
+                _logger.Log(LogLevel.Information, $"Updated {nameof(Stock)} entity is success. Id of the updated entity: {stockEntity.Id} ");
+
                 return new UpdateStockResponse
                 {
                     Success = true
@@ -37,11 +45,12 @@ namespace BeerSales.Core.Stock.Commands
             }
             catch (Exception ex)
             {
-                // TODO logging
+                _logger.LogError(ex, $"Problem during {nameof(UpdateStockCommand)} update.");
+
                 return new UpdateStockResponse
                 {
                     Success = false,
-                    ErrorMessage = $"Exception message: " + ex.Message + " Inner exception: " + ex.InnerException
+                    ErrorMessage = $"Exception message: " + ex.Message
                 };
             }
         }

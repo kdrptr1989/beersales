@@ -1,6 +1,6 @@
 ﻿using BeerSales.Core.Order.Dto;
 
-namespace BeerSales.Core.Order.Commands.CreateOrder
+namespace BeerSales.Core.Order.Commands.CreateQuote
 {
     public record CreateQuoteResponse : BaseResponse
     {

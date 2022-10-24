@@ -15,9 +15,12 @@ namespace BeerSales.Api.Endpoints.BeerEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
-        private static async Task<IResult> RemoveBeerAsync(IMediator mediator, RemoveBeerCommand command)
+        private static async Task<IResult> RemoveBeerAsync(
+            IMediator mediator, 
+            RemoveBeerCommand command,
+            CancellationToken cancellationToken)
         {
-            var response = await mediator.Send(command);
+            var response = await mediator.Send(command, cancellationToken);
 
             return response.Success ? Results.Ok(response) : Results.BadRequest(response);
         }
