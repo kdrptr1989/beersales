@@ -1,23 +1,31 @@
-﻿using BeerSales.Core.Order.Dto;
+﻿using BeerSales.Core.Beers.Queries.GetAllBreweriesWithBeers;
+using BeerSales.Core.Order.Dto;
 using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace BeerSales.Core.Order.Commands.CreateOrder
+namespace BeerSales.Core.Order.Commands.CreateQuote
 {
     public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, CreateQuoteResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
+        private readonly ILogger<CreateQuoteCommandHandler> _logger;
 
-        public CreateQuoteCommandHandler(IBeerSalesDbContext context)
+        public CreateQuoteCommandHandler(
+            IBeerSalesDbContext context,
+            ILogger<CreateQuoteCommandHandler> logger)
         {
             _dbContext = context;
+            _logger = logger;
         }
 
         public async Task<CreateQuoteResponse> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                _logger.Log(LogLevel.Information, $"{nameof(CreateQuoteCommand)} is called");
+
                 await ValidateRequest(request, cancellationToken);
                             
                 var orderSummaryList = new List<OrderSummaryDto>();
@@ -67,11 +75,12 @@ namespace BeerSales.Core.Order.Commands.CreateOrder
             }
             catch (Exception ex)
             {
-                // TODO logging
+                _logger.LogError(ex, $"Problem during {nameof(CreateQuoteCommand)} quote creation.");
+
                 return new CreateQuoteResponse
                 {
                     Success = false,
-                    ErrorMessage = $"Exception message: " + ex.Message + " Inner exception: " + ex.InnerException
+                    ErrorMessage = $"Exception message: " + ex.Message
                 };
             }
         }
@@ -89,13 +98,7 @@ namespace BeerSales.Core.Order.Commands.CreateOrder
         }
 
         private async Task ValidateRequest(CreateQuoteCommand request, CancellationToken cancellationToken)
-        {
-            // Order list check
-            if (!request.OrdersList.Any())
-            {
-                throw new Exception("Order can not be empty");
-            }
-
+        {          
             // Wholesaler exists check
             var wholesalerListIds = request.OrdersList.Select(x => x.WholesalerId).Distinct();
             if (wholesalerListIds.Any())

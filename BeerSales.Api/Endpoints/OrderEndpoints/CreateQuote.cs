@@ -1,8 +1,9 @@
 ﻿using BeerSales.Api.Interface;
-using BeerSales.Core.Order.Commands.CreateOrder;
+using BeerSales.Core.Order.Commands.CreateQuote;
+using FluentValidation;
 using MediatR;
 
-namespace BeerSales.Api.Endpoints.BeerEndpoints
+namespace BeerSales.Api.Endpoints.OrderEndpoints
 {
     public class CreateQuote : IEndpoint
     {
@@ -15,9 +16,19 @@ namespace BeerSales.Api.Endpoints.BeerEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
-        private static async Task<IResult> CreateQuoteAsync(IMediator mediator, CreateQuoteCommand command)
+        private static async Task<IResult> CreateQuoteAsync(
+            IMediator mediator, 
+            CreateQuoteCommand command,
+            IValidator<CreateQuoteCommand> validator,
+            CancellationToken cancellationToken)
         {
-            var response = await mediator.Send(command);
+            var validationResult = await validator.ValidateAsync(command);
+            if (!validationResult.IsValid)
+            {
+                return Results.BadRequest(validationResult.Errors);
+            }
+
+            var response = await mediator.Send(command, cancellationToken);
 
             return response.Success ? Results.Ok(response) : Results.BadRequest(response);
         }

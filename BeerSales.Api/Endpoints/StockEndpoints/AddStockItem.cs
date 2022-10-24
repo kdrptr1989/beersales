@@ -1,5 +1,6 @@
 ﻿using BeerSales.Api.Interface;
 using BeerSales.Core.Stock.Commands;
+using FluentValidation;
 using MediatR;
 
 namespace BeerSales.Api.Endpoints.StockEndpoints
@@ -18,8 +19,15 @@ namespace BeerSales.Api.Endpoints.StockEndpoints
         private static async Task<IResult> AddStockItemAsync(
             IMediator mediator,
             AddStockItemCommand command,
+            IValidator<AddStockItemCommand> validator,
             CancellationToken cancellationToken)
         {
+            var validationResult = await validator.ValidateAsync(command);
+            if (!validationResult.IsValid)
+            {
+                return Results.BadRequest(validationResult.Errors);
+            }
+
             var response = await mediator.Send(command, cancellationToken);
 
             return Results.Ok(response);

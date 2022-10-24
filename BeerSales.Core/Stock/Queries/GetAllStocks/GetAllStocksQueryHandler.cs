@@ -1,25 +1,33 @@
 ﻿using BeerSales.Core.Beer.Dto;
+using BeerSales.Core.Stock.Commands;
 using BeerSales.Core.Stock.Queries.Dto;
 using BeerSales.Core.Wholesaler.Queries.Dto;
 using BeerSales.Infrastructure.Interfaces;
 using BeerSales.Infrastructure.Mappings;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace BeerSales.Core.Wholesaler.Queries.GetAllStocks
 {
     public class GetAllStocksQueryHandler : IRequestHandler<GetAllStocksQuery,GetAllStocksResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
+        private readonly ILogger<GetAllStocksQueryHandler> _logger;
 
-        public GetAllStocksQueryHandler(IBeerSalesDbContext context)
+        public GetAllStocksQueryHandler(
+            IBeerSalesDbContext context,
+            ILogger<GetAllStocksQueryHandler> logger)
         {
             _dbContext = context;
+            _logger = logger;
         }
 
         public async Task<GetAllStocksResponse> Handle(GetAllStocksQuery request, CancellationToken cancellationToken)
         {
             try
             {
+                _logger.Log(LogLevel.Information, $"{nameof(GetAllStocksQuery)} is called");
+
                 var listOfStocks = await _dbContext
                      .Stocks
                      .Select(b => new StockDto(
@@ -42,10 +50,12 @@ namespace BeerSales.Core.Wholesaler.Queries.GetAllStocks
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Problem during {nameof(GetAllStocksQuery)} request.");
+
                 return new GetAllStocksResponse
                 {
                     Success = false,
-                    ErrorMessage = $"Exception message: " + ex.Message + " Inner exception: " + ex.InnerException
+                    ErrorMessage = $"Exception message: " + ex.Message
                 };
             }
         }
