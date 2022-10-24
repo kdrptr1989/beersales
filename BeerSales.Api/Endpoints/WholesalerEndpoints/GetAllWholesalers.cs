@@ -15,6 +15,11 @@ namespace BeerSales.Api.Endpoints.WholesalerEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Get All Wholesaler with Pagination
+        /// </summary>
+        /// <param name="pageNumber">Number of Page</param>
+        /// <param name="sizeNumber">Number of Size (Page)</param>
         private static async Task<IResult> GetAllWholesalersAsync(
             IMediator mediator,
             int pageNumber,

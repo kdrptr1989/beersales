@@ -15,6 +15,10 @@ namespace BeerSales.Api.Endpoints.BeerEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Remove Beer by a Brewery
+        /// </summary>
+        /// <param name="command">RemoveBeer command</param>
         private static async Task<IResult> RemoveBeerAsync(
             IMediator mediator, 
             RemoveBeerCommand command,

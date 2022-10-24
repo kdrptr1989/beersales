@@ -17,6 +17,10 @@ namespace BeerSales.Api.Endpoints.StockEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Update existing Stock
+        /// </summary>
+        /// <param name="command">Update Stock command</param>
         private static async Task<IResult> UpdateStockAsync(
             IMediator mediator,
             UpdateStockCommand command,

@@ -15,6 +15,11 @@ namespace BeerSales.Api.Endpoints.StockEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Get All Stock with Pagination
+        /// </summary>
+        /// <param name="pageNumber">Number of Page</param>
+        /// <param name="sizeNumber">Number of Size (Page)</param>
         private static async Task<IResult> GetAllStocksAsync(
             IMediator mediator,
             int pageNumber,

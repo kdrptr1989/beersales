@@ -16,6 +16,11 @@ namespace BeerSales.Api.Endpoints.OrderEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Create Quote by the Client
+        /// </summary>
+        /// <param name="command">Create Quote command</param>
+        /// <returns></returns>
         private static async Task<IResult> CreateQuoteAsync(
             IMediator mediator, 
             CreateQuoteCommand command,

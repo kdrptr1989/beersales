@@ -15,6 +15,11 @@ namespace BeerSales.Api.Endpoints.BreweryEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Get All Breweries with Beers. Pagination supported.
+        /// </summary>
+        /// <param name="pageNumber">Number of page</param>
+        /// <param name="sizeNumber">Number of Size (Page)</param>
         private static async Task<IResult> GetAllBreweriesWithBeersAsync(
             IMediator mediator, 
             int pageNumber, 
