@@ -1,4 +1,6 @@
-﻿using BeerSales.Infrastructure.Interfaces;
+﻿using BeerSale.Infrastructure;
+using BeerSales.Infrastructure.Interfaces;
+using BeerSales.Infrastructure.Repository.Interface;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -8,17 +10,24 @@ namespace BeerSales.Core.Beer.Commands
     public class AddBeerCommandHandler : IRequestHandler<AddBeerCommand, AddBeerResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
-        private readonly ILogger<AddBeerCommandHandler> _logger;
+        private readonly IBeerRepository _beerRepository;
+        private readonly ILogger<RemoveBeerCommandHandler> _logger;
 
         public AddBeerCommandHandler(
             IBeerSalesDbContext context,
-            ILogger<AddBeerCommandHandler> logger)
+            IBeerRepository beerRepository,
+            ILogger<RemoveBeerCommandHandler> logger)
         {
+            Ensure.ArgumentNotNull(context, nameof(context));
+            Ensure.ArgumentNotNull(logger, nameof(logger));
+            Ensure.ArgumentNotNull(beerRepository, nameof(beerRepository));
+
             _dbContext = context;
             _logger = logger;
+            _beerRepository = beerRepository;
         }
 
-        public async Task<AddBeerResponse> Handle(AddBeerCommand request, CancellationToken cancellationToken)
+    public async Task<AddBeerResponse> Handle(AddBeerCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -33,10 +42,10 @@ namespace BeerSales.Core.Beer.Commands
                         request.Beer.Price,
                         request.Beer.AlcoholContent,
                         request.Beer.Currency,
-                        DateTime.UtcNow);
+                        default);
 
-                _dbContext.Beers.Add(beerEntity);
-                await _dbContext.SaveChangesAsync(cancellationToken);
+                _beerRepository.Add(beerEntity);
+                _beerRepository.Save();
 
                 _logger.Log(LogLevel.Information, $"New {nameof(Beer)} entity is saved. Id of the new entity: {beerEntity.Id} ");
 
@@ -61,7 +70,7 @@ namespace BeerSales.Core.Beer.Commands
         private async Task ValidateRequest(AddBeerCommand request, CancellationToken cancellationToken)
         {
             var breweryValidation = await _dbContext
-                .Stocks
+                .Breweries
                 .AnyAsync(x => x.Id == request.Beer.BreweryId);
 
             if (!breweryValidation)

@@ -1,5 +1,5 @@
-﻿using BeerSales.Core.Beer.Dto;
-using BeerSales.Core.Stock.Commands;
+﻿using BeerSale.Infrastructure;
+using BeerSales.Core.Beer.Dto;
 using BeerSales.Core.Stock.Queries.Dto;
 using BeerSales.Core.Wholesaler.Queries.Dto;
 using BeerSales.Infrastructure.Interfaces;
@@ -18,6 +18,9 @@ namespace BeerSales.Core.Wholesaler.Queries.GetAllStocks
             IBeerSalesDbContext context,
             ILogger<GetAllStocksQueryHandler> logger)
         {
+            Ensure.ArgumentNotNull(context, nameof(context));
+            Ensure.ArgumentNotNull(logger, nameof(logger));
+
             _dbContext = context;
             _logger = logger;
         }
@@ -26,6 +29,8 @@ namespace BeerSales.Core.Wholesaler.Queries.GetAllStocks
         {
             try
             {
+                Ensure.ArgumentNotNull(request, nameof(request));
+
                 _logger.Log(LogLevel.Information, $"{nameof(GetAllStocksQuery)} is called");
 
                 var listOfStocks = await _dbContext

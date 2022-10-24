@@ -1,4 +1,5 @@
-﻿using BeerSales.Infrastructure.Interfaces;
+﻿using BeerSale.Infrastructure;
+using BeerSales.Infrastructure.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,9 @@ namespace BeerSales.Core.Stock.Commands
             IBeerSalesDbContext context,
             ILogger<UpdateStockCommandHandler> logger)
         {
+            Ensure.ArgumentNotNull(context, nameof(context));
+            Ensure.ArgumentNotNull(logger, nameof(logger));
+
             _dbContext = context;
             _logger = logger;
         }
@@ -22,6 +26,8 @@ namespace BeerSales.Core.Stock.Commands
         {
             try
             {
+                Ensure.ArgumentNotNull(request, nameof(request));
+
                 _logger.Log(LogLevel.Information, $"{nameof(UpdateStockCommand)} is called");
 
                 await ValidateRequest(request, cancellationToken);

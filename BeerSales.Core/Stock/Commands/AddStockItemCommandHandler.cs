@@ -1,4 +1,5 @@
-﻿using BeerSales.Core.Beer.Commands;
+﻿using BeerSale.Infrastructure;
+using BeerSales.Core.Beer.Commands;
 using BeerSales.Core.Order.Commands.CreateQuote;
 using BeerSales.Infrastructure.Interfaces;
 using MediatR;
@@ -16,6 +17,9 @@ namespace BeerSales.Core.Stock.Commands
             IBeerSalesDbContext context,
             ILogger<AddStockItemCommandHandler> logger)
         {
+            Ensure.ArgumentNotNull(context, nameof(context));
+            Ensure.ArgumentNotNull(logger, nameof(logger));
+
             _dbContext = context;
             _logger = logger;
         }
@@ -24,6 +28,8 @@ namespace BeerSales.Core.Stock.Commands
         {
             try
             {
+                Ensure.ArgumentNotNull(request, nameof(request));
+
                 _logger.Log(LogLevel.Information, $"{nameof(AddStockItemCommand)} is called");
 
                 await ValidateRequest(request, cancellationToken);

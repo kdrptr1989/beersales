@@ -8,7 +8,10 @@ namespace BeerSales.Infrastructure.Data
     {
         public BeerSaleDbContext() { }
 
-        public BeerSaleDbContext(DbContextOptions<BeerSaleDbContext> options) : base(options) { }
+        public BeerSaleDbContext(
+            DbContextOptions<BeerSaleDbContext> options) : base(options) 
+        {
+        }
 
         public DbSet<Brewery> Breweries => Set<Brewery>();
         public DbSet<Beer> Beers => Set<Beer>();
@@ -26,5 +29,6 @@ namespace BeerSales.Infrastructure.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }

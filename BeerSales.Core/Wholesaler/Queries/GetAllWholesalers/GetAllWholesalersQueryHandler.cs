@@ -1,4 +1,7 @@
-﻿using BeerSales.Core.Wholesaler.Queries.Dto;
+﻿using BeerSale.Infrastructure;
+using BeerSales.Core.Beer.Commands;
+using BeerSales.Core.Wholesaler.Queries.Dto;
+using BeerSales.Core.Wholesaler.Queries.GetAllStocks;
 using BeerSales.Infrastructure.Interfaces;
 using BeerSales.Infrastructure.Mappings;
 using MediatR;
@@ -9,12 +12,15 @@ namespace BeerSales.Core.Wholesaler.Queries.GetAllWholesalers
     public class GetAllWholesalersQueryHandler : IRequestHandler<GetAllWholesalersQuery, GetAllWholesalersResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
-        private readonly ILogger<GetAllWholesalersQueryHandler> _logger;
+        private readonly ILogger<GetAllStocksQueryHandler> _logger;
 
         public GetAllWholesalersQueryHandler(
             IBeerSalesDbContext context,
-            ILogger<GetAllWholesalersQueryHandler> logger)
+            ILogger<GetAllStocksQueryHandler> logger)
         {
+            Ensure.ArgumentNotNull(context, nameof(context));
+            Ensure.ArgumentNotNull(logger, nameof(logger));
+
             _dbContext = context;
             _logger = logger;
         }
@@ -23,6 +29,8 @@ namespace BeerSales.Core.Wholesaler.Queries.GetAllWholesalers
         {
             try
             {
+                Ensure.ArgumentNotNull(request, nameof(request));
+
                 _logger.Log(LogLevel.Information, $"{nameof(GetAllWholesalersQuery)} is called");
 
                 var listOfWholesalers = await _dbContext
