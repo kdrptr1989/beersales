@@ -31,8 +31,6 @@ app.UseHttpsRedirection();
 
 await EnsureDbAsync(app.Services);
 
-app.MapGet("/", () => "BeerSales Api");
-
 app.Run();
 
 static async Task EnsureDbAsync(IServiceProvider sp)

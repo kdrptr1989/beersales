@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5DD5BAD0-AD6
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C46476D0-0F9A-475B-8B95-6773705A9550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSales.Core", "..\BeerSales.Core\BeerSales.Core.csproj", "{1F421909-2978-46BF-AABB-63A3359D7811}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerSales.Core", "BeerSales.Core\BeerSales.Core.csproj", "{1F421909-2978-46BF-AABB-63A3359D7811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
