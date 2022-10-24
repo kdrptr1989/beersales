@@ -18,7 +18,7 @@ namespace BeerSales.Core.Order.Commands.CreateOrder
         {
             try
             {
-                var validRequest = await ValidateQuoteRequest(request, cancellationToken);
+                await ValidateRequest(request, cancellationToken);
                             
                 var orderSummaryList = new List<OrderSummaryDto>();
 
@@ -88,7 +88,7 @@ namespace BeerSales.Core.Order.Commands.CreateOrder
             return discount != null ? discount.DiscountPercentage : default;
         }
 
-        private async Task<bool> ValidateQuoteRequest(CreateQuoteCommand request, CancellationToken cancellationToken)
+        private async Task ValidateRequest(CreateQuoteCommand request, CancellationToken cancellationToken)
         {
             // Order list check
             if (!request.OrdersList.Any())
@@ -142,8 +142,6 @@ namespace BeerSales.Core.Order.Commands.CreateOrder
                     throw new Exception("The number of beers ordered cannot be greater than the wholesaler's stock");
                 }
             }
-
-            return true;
         }
 
         #endregion

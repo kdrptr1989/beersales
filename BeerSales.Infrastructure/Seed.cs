@@ -12,9 +12,9 @@ namespace BeerSales.Infrastructure
 
         internal static Brewery[] Breweries =
         {
-            new (abbayeDeLeffeBreweryId , "Abbaye de Leffe"),
-            new (heinekenBreweryId , "Heineken"),
-            new (guinessBreweryId , "Gunniess")
+            new (abbayeDeLeffeBreweryId , "Abbaye de Leffe", default),
+            new (heinekenBreweryId , "Heineken", default),
+            new (guinessBreweryId , "Gunniess", default),
         };
 
         #endregion
@@ -27,9 +27,9 @@ namespace BeerSales.Infrastructure
 
         internal static Beer[] Beers =
        {
-            new (leffeBlondeId, abbayeDeLeffeBreweryId ,"Leffe Blonde", 2.3m, 6.6m, "EUR"),
-            new (heinekenSilverId, heinekenBreweryId, "Heineken Silver", 1.5m, 4.5m, "EUR"),
-            new (guinessDraughtId, guinessBreweryId, "Guinness Draught", 2.6m, 5.6m, "EUR"),
+            new (leffeBlondeId, abbayeDeLeffeBreweryId ,"Leffe Blonde", 2.3m, 6.6m, "EUR", default),
+            new (heinekenSilverId, heinekenBreweryId, "Heineken Silver", 1.5m, 4.5m, "EUR", default),
+            new (guinessDraughtId, guinessBreweryId, "Guinness Draught", 2.6m, 5.6m, "EUR", default)
         };
 
         #endregion
@@ -42,9 +42,9 @@ namespace BeerSales.Infrastructure
 
         internal static Wholesaler[] Wholesalers =
         {
-            new (geneDrinksId, "GeneDrinks"),
-            new (allBeerSalesId, "AllBeerSales"),
-            new ( foreverBeerId, "Forever Beer")
+            new (geneDrinksId, "GeneDrinks", default),
+            new (allBeerSalesId, "AllBeerSales", default),
+            new ( foreverBeerId, "Forever Beer", default)
         };
 
         #endregion
@@ -53,16 +53,16 @@ namespace BeerSales.Infrastructure
 
         internal static Stock[] Stocks =
         {
-            new ( Guid.NewGuid(), geneDrinksId, leffeBlondeId, 100),
-            new ( Guid.NewGuid(), geneDrinksId, heinekenSilverId, 50),
+            new ( Guid.NewGuid(), geneDrinksId, leffeBlondeId, 100, default),
+            new ( Guid.NewGuid(), geneDrinksId, heinekenSilverId, 50, default),
 
-            new ( Guid.NewGuid(), allBeerSalesId, leffeBlondeId, 30),
-            new ( Guid.NewGuid(), allBeerSalesId, heinekenSilverId, 200),
-            new ( Guid.NewGuid(), allBeerSalesId, guinessDraughtId, 70),
+            new ( Guid.NewGuid(), allBeerSalesId, leffeBlondeId, 30, default),
+            new ( Guid.NewGuid(), allBeerSalesId, heinekenSilverId, 200, default),
+            new ( Guid.NewGuid(), allBeerSalesId, guinessDraughtId, 70, default),
 
-            new ( Guid.NewGuid(), foreverBeerId, leffeBlondeId, 300),
-            new ( Guid.NewGuid(), foreverBeerId, heinekenSilverId, 20),
-            new ( Guid.NewGuid(), foreverBeerId, guinessDraughtId, 40)
+            new ( Guid.NewGuid(), foreverBeerId, leffeBlondeId, 300, default),
+            new ( Guid.NewGuid(), foreverBeerId, heinekenSilverId, 20, default),
+            new ( Guid.NewGuid(), foreverBeerId, guinessDraughtId, 40, default)
         };
 
         #endregion
@@ -71,8 +71,8 @@ namespace BeerSales.Infrastructure
 
         internal static Discount[] Discounts =
         {
-            new ( Guid.NewGuid(), 11, 10),
-            new ( Guid.NewGuid(), 21, 20)
+            new ( Guid.NewGuid(), 11, 10, default),
+            new ( Guid.NewGuid(), 21, 20, default)
         };
 
         #endregion

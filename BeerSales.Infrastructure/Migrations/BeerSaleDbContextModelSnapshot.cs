@@ -34,9 +34,15 @@ namespace BeerSales.Infrastructure.Migrations
                     b.Property<Guid>("BreweryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -54,27 +60,30 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
+                            Id = new Guid("9a458ff1-068c-42e4-8ecd-673d46a07c2f"),
                             AlcoholContent = 6.6m,
-                            BreweryId = new Guid("f1b76026-c4a7-4cb7-9b71-dda1e1df49f5"),
+                            BreweryId = new Guid("8e489942-f9ca-47a9-9781-df6c08a962cb"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(1765),
                             Currency = "EUR",
                             Name = "Leffe Blonde",
                             Price = 2.3m
                         },
                         new
                         {
-                            Id = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
+                            Id = new Guid("b5f51183-6eaa-4533-9a97-992d0323e9bb"),
                             AlcoholContent = 4.5m,
-                            BreweryId = new Guid("64d3ad32-d588-41c9-af1e-6b79fc92592c"),
+                            BreweryId = new Guid("ea11c974-a835-4161-9fd4-b4d40b6af996"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(1766),
                             Currency = "EUR",
                             Name = "Heineken Silver",
                             Price = 1.5m
                         },
                         new
                         {
-                            Id = new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"),
+                            Id = new Guid("961fd882-f6e3-4444-ad5b-d80dc7aa80fa"),
                             AlcoholContent = 5.6m,
-                            BreweryId = new Guid("844ee1af-f882-4b35-85b9-6916f288432c"),
+                            BreweryId = new Guid("2d066bf1-8cea-4933-8562-1ddf8bc77131"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(1767),
                             Currency = "EUR",
                             Name = "Guinness Draught",
                             Price = 2.6m
@@ -87,6 +96,12 @@ namespace BeerSales.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,17 +113,20 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f1b76026-c4a7-4cb7-9b71-dda1e1df49f5"),
+                            Id = new Guid("8e489942-f9ca-47a9-9781-df6c08a962cb"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(1260),
                             Name = "Abbaye de Leffe"
                         },
                         new
                         {
-                            Id = new Guid("64d3ad32-d588-41c9-af1e-6b79fc92592c"),
+                            Id = new Guid("ea11c974-a835-4161-9fd4-b4d40b6af996"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(1265),
                             Name = "Heineken"
                         },
                         new
                         {
-                            Id = new Guid("844ee1af-f882-4b35-85b9-6916f288432c"),
+                            Id = new Guid("2d066bf1-8cea-4933-8562-1ddf8bc77131"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(1266),
                             Name = "Gunniess"
                         });
                 });
@@ -119,8 +137,14 @@ namespace BeerSales.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("DiscountPercentage")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TierFrom")
                         .HasColumnType("int");
@@ -132,13 +156,15 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            id = new Guid("0babea85-7d1f-4d57-aa17-06906215d6ed"),
+                            id = new Guid("28652824-28ba-4dde-8812-240d453b6fe8"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2741),
                             DiscountPercentage = 10m,
                             TierFrom = 11
                         },
                         new
                         {
-                            id = new Guid("a56c5ce6-1892-4c4a-92ea-b4c705fcb737"),
+                            id = new Guid("a094d126-fb1e-4192-ae3e-b9c48bbf3602"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2744),
                             DiscountPercentage = 20m,
                             TierFrom = 21
                         });
@@ -152,6 +178,12 @@ namespace BeerSales.Infrastructure.Migrations
 
                     b.Property<Guid>("BeerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -170,59 +202,67 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d8ebd9e9-c83a-4c24-b264-22fa580ea1a0"),
-                            BeerId = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
+                            Id = new Guid("58d77151-46f5-4773-9740-8af1e15887e1"),
+                            BeerId = new Guid("9a458ff1-068c-42e4-8ecd-673d46a07c2f"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2412),
                             Quantity = 100,
-                            WholesalerId = new Guid("ce22239c-17af-4330-833d-3040f13773a9")
+                            WholesalerId = new Guid("3b2b2649-0a7b-459b-9195-bdf04dc33cd5")
                         },
                         new
                         {
-                            Id = new Guid("b9b7c9f5-43ed-42b7-8d62-9e6abf73405a"),
-                            BeerId = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
+                            Id = new Guid("8ce844af-9eb9-4686-8591-25cfafe7eadf"),
+                            BeerId = new Guid("b5f51183-6eaa-4533-9a97-992d0323e9bb"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2414),
                             Quantity = 50,
-                            WholesalerId = new Guid("ce22239c-17af-4330-833d-3040f13773a9")
+                            WholesalerId = new Guid("3b2b2649-0a7b-459b-9195-bdf04dc33cd5")
                         },
                         new
                         {
-                            Id = new Guid("a58c6e9c-7328-47fc-91c2-b5019d10e9fe"),
-                            BeerId = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
+                            Id = new Guid("7e3d4de5-e9d0-4a0b-93cb-3d91c4319632"),
+                            BeerId = new Guid("9a458ff1-068c-42e4-8ecd-673d46a07c2f"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2415),
                             Quantity = 30,
-                            WholesalerId = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e")
+                            WholesalerId = new Guid("3be8866e-da37-4cbb-9da8-f29317c53454")
                         },
                         new
                         {
-                            Id = new Guid("1e4e36b4-6e0e-436b-bfa9-bddacd7e00de"),
-                            BeerId = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
+                            Id = new Guid("09fcb33a-8345-4e26-bd78-e63c4d152a3a"),
+                            BeerId = new Guid("b5f51183-6eaa-4533-9a97-992d0323e9bb"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2416),
                             Quantity = 200,
-                            WholesalerId = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e")
+                            WholesalerId = new Guid("3be8866e-da37-4cbb-9da8-f29317c53454")
                         },
                         new
                         {
-                            Id = new Guid("2afdf137-86ff-4ea3-a138-52a12b3d4fea"),
-                            BeerId = new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"),
+                            Id = new Guid("9bfe7874-e106-42b0-8301-6d09bd6f5d81"),
+                            BeerId = new Guid("961fd882-f6e3-4444-ad5b-d80dc7aa80fa"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2417),
                             Quantity = 70,
-                            WholesalerId = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e")
+                            WholesalerId = new Guid("3be8866e-da37-4cbb-9da8-f29317c53454")
                         },
                         new
                         {
-                            Id = new Guid("d7ce00e3-5225-41c2-854a-1ce71a02999b"),
-                            BeerId = new Guid("7f395fd9-0ca9-4ec9-9c93-87a491f139de"),
+                            Id = new Guid("435e9e7e-abd4-4d4a-8c29-208f81b386ec"),
+                            BeerId = new Guid("9a458ff1-068c-42e4-8ecd-673d46a07c2f"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2418),
                             Quantity = 300,
-                            WholesalerId = new Guid("214d5662-1051-40c3-95af-926fc66a3032")
+                            WholesalerId = new Guid("f401ed08-3908-4dc9-8354-2b616d713fec")
                         },
                         new
                         {
-                            Id = new Guid("5c1a5bea-7eda-4a98-8c9e-43b8d6c80b8f"),
-                            BeerId = new Guid("5669de71-bd93-41ec-9ce6-d25846120ec9"),
+                            Id = new Guid("e0ae1c8e-dc03-491a-b344-a55b8a44241a"),
+                            BeerId = new Guid("b5f51183-6eaa-4533-9a97-992d0323e9bb"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2422),
                             Quantity = 20,
-                            WholesalerId = new Guid("214d5662-1051-40c3-95af-926fc66a3032")
+                            WholesalerId = new Guid("f401ed08-3908-4dc9-8354-2b616d713fec")
                         },
                         new
                         {
-                            Id = new Guid("46b9645d-d44f-4797-afeb-411c1eeaf933"),
-                            BeerId = new Guid("f42e81f1-5129-4dde-a333-de52ebacfbc1"),
+                            Id = new Guid("49e67567-e1ed-4e9a-b085-693fdcff990b"),
+                            BeerId = new Guid("961fd882-f6e3-4444-ad5b-d80dc7aa80fa"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2423),
                             Quantity = 40,
-                            WholesalerId = new Guid("214d5662-1051-40c3-95af-926fc66a3032")
+                            WholesalerId = new Guid("f401ed08-3908-4dc9-8354-2b616d713fec")
                         });
                 });
 
@@ -231,6 +271,12 @@ namespace BeerSales.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -243,17 +289,20 @@ namespace BeerSales.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ce22239c-17af-4330-833d-3040f13773a9"),
+                            Id = new Guid("3b2b2649-0a7b-459b-9195-bdf04dc33cd5"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2082),
                             Name = "GeneDrinks"
                         },
                         new
                         {
-                            Id = new Guid("f148a4c7-76c4-40dd-b829-b6ee3442756e"),
+                            Id = new Guid("3be8866e-da37-4cbb-9da8-f29317c53454"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2083),
                             Name = "AllBeerSales"
                         },
                         new
                         {
-                            Id = new Guid("214d5662-1051-40c3-95af-926fc66a3032"),
+                            Id = new Guid("f401ed08-3908-4dc9-8354-2b616d713fec"),
+                            CreatedDate = new DateTime(2022, 10, 24, 16, 10, 0, 153, DateTimeKind.Utc).AddTicks(2083),
                             Name = "Forever Beer"
                         });
                 });
