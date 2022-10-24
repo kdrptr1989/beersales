@@ -26,6 +26,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddScoped<IBeerRepository, BeerRepository>();
 builder.Services.AddScoped<IBreweryRepository, BreweryRepository>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
+builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<IWholesalerRepository, WholesalerRepository>();
 
 var app = builder.Build();
 app.UseWeb(builder.Configuration);

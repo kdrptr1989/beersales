@@ -16,6 +16,11 @@ namespace BeerSales.Api.Endpoints.BeerEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Add Beer by a Brewery
+        /// </summary>
+        /// <param name="command">AddBeer command</param>
+        /// <returns></returns>
         private static async Task<IResult> AddBeerAsync(
             IMediator mediator, 
             AddBeerCommand command,

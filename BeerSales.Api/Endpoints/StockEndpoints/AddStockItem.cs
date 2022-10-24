@@ -16,6 +16,10 @@ namespace BeerSales.Api.Endpoints.StockEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
+        /// <summary>
+        /// Add Stock Item
+        /// </summary>
+        /// <param name="command">Add stock item command by Wholesaler</param>
         private static async Task<IResult> AddStockItemAsync(
             IMediator mediator,
             AddStockItemCommand command,
