@@ -1,6 +1,7 @@
-﻿using BeerSales.Core.Beers.Queries.GetAllBreweriesWithBeers;
+﻿using BeerSale.Infrastructure;
 using BeerSales.Core.Order.Dto;
 using BeerSales.Infrastructure.Interfaces;
+using BeerSales.Infrastructure.Repository.Interface;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -10,30 +11,47 @@ namespace BeerSales.Core.Order.Commands.CreateQuote
     public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, CreateQuoteResponse>
     {
         private readonly IBeerSalesDbContext _dbContext;
+        private readonly IWholesalerRepository _wholesalerRepository;
+        private readonly IStockRepository _stockRepository;
+        private readonly IDiscountRepository _discountRepository;
         private readonly ILogger<CreateQuoteCommandHandler> _logger;
 
         public CreateQuoteCommandHandler(
             IBeerSalesDbContext context,
+            IWholesalerRepository wholesalerRepository,
+            IStockRepository stockRepository,
+            IDiscountRepository discountRepository,
             ILogger<CreateQuoteCommandHandler> logger)
         {
+            Ensure.ArgumentNotNull(context, nameof(context));
+            Ensure.ArgumentNotNull(logger, nameof(logger));
+            Ensure.ArgumentNotNull(wholesalerRepository, nameof(wholesalerRepository));
+            Ensure.ArgumentNotNull(stockRepository, nameof(stockRepository));
+            Ensure.ArgumentNotNull(discountRepository, nameof(discountRepository));
+
             _dbContext = context;
             _logger = logger;
+            _wholesalerRepository = wholesalerRepository;
+            _stockRepository = stockRepository;
+            _discountRepository = discountRepository;
         }
 
         public async Task<CreateQuoteResponse> Handle(CreateQuoteCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                Ensure.ArgumentNotNull(request, nameof(request));
+
                 _logger.Log(LogLevel.Information, $"{nameof(CreateQuoteCommand)} is called");
 
-                await ValidateRequest(request, cancellationToken);
+                ValidateRequest(request, cancellationToken);
                             
                 var orderSummaryList = new List<OrderSummaryDto>();
 
                 foreach (var order in request.OrdersList)
                 {
-                    var stock = _dbContext
-                        .Stocks
+                    var stock = _stockRepository
+                        .GetAll
                         .Include(x => x.Wholesaler)
                         .Include(x => x.Beer)
                         .FirstOrDefault(x => x.WholesalerId == order.WholesalerId && x.BeerId == order.BeerId);
@@ -89,24 +107,24 @@ namespace BeerSales.Core.Order.Commands.CreateQuote
 
         private decimal? GetDiscount(int totalQuantity)
         {
-            var discount = _dbContext
-                .Discounts                
-                .OrderByDescending(x=>x.TierFrom)
-                .FirstOrDefault(d => d.TierFrom <= totalQuantity);
+            var discount = _discountRepository
+                .GetAll
+                .OrderByDescending(x => x.TierFrom)
+                .FirstOrDefault(d => d.TierFrom <= totalQuantity);                
 
-            return discount != null ? discount.DiscountPercentage : default;
+            return discount != null ? discount.DiscountPercentage : null;
         }
 
-        private async Task ValidateRequest(CreateQuoteCommand request, CancellationToken cancellationToken)
+        private void ValidateRequest(CreateQuoteCommand request, CancellationToken cancellationToken)
         {          
             // Wholesaler exists check
             var wholesalerListIds = request.OrdersList.Select(x => x.WholesalerId).Distinct();
             if (wholesalerListIds.Any())
             {
-                var wholesalers = await _dbContext
-                    .Wholesalers
+                var wholesalers = _wholesalerRepository
+                    .GetAll
                     .Select(x => x.Id)
-                    .ToListAsync(cancellationToken);
+                    .ToList();
 
                 if (!wholesalerListIds.All(x => wholesalers.Contains(x)))
                 {
@@ -129,20 +147,19 @@ namespace BeerSales.Core.Order.Commands.CreateQuote
             // Wholesaler's stock check
             foreach (var order in request.OrdersList)
             {
-                var stockByWholesaler = await _dbContext
-                    .Stocks
-                    .Where(x => x.WholesalerId == order.WholesalerId)
-                    .ToListAsync(cancellationToken);
-
+                var stockByWholesaler = _stockRepository
+                    .GetAll
+                    .Where(x => x.WholesalerId == order.WholesalerId);
+                   
                 var stockByBeer = stockByWholesaler.FirstOrDefault(x => x.BeerId == order.BeerId);
                 if (stockByBeer is null || stockByBeer.Quantity == 0)
                 {
-                    throw new Exception("The beer must be sold by the wholesaler");
+                    throw new Exception("The beer must be sold by the wholesaler.");
                 }
 
                 if (stockByBeer.Quantity < order.Quantity)
                 {
-                    throw new Exception("The number of beers ordered cannot be greater than the wholesaler's stock");
+                    throw new Exception("The number of beers ordered cannot be greater than the wholesaler's stock.");
                 }
             }
         }
