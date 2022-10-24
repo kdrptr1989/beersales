@@ -1,5 +1,5 @@
-# beersales
-Demo project for Brewery and Wholesale management
+# BeerSale project
+Demo project for Brewery and Wholesaler management
 
 #Technology stack
 - .NET 6 - Minimal api
