@@ -1,5 +1,5 @@
 ﻿using BeerSales.Api.Interface;
-using BeerSales.Core.Beer.Command;
+using BeerSales.Core.Beer.Commands;
 using MediatR;
 
 namespace BeerSales.Api.Endpoints.BeerEndpoints
@@ -11,7 +11,7 @@ namespace BeerSales.Api.Endpoints.BeerEndpoints
         public static void DefineEndpoint(IEndpointRouteBuilder builder)
         {
             builder.MapPost(Route, RemoveBeerAsync)
-                .Produces<RemoveBeerCommandResponse>()
+                .Produces<RemoveBeerResponse>()
                 .WithTags(EndpointConstant.Tag);
         }
 

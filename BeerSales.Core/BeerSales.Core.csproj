@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Stock\Queries\GetAllStocks\Dto\**" />
+    <EmbeddedResource Remove="Stock\Queries\GetAllStocks\Dto\**" />
+    <None Remove="Stock\Queries\GetAllStocks\Dto\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BeerSales.Infrastructure\BeerSales.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

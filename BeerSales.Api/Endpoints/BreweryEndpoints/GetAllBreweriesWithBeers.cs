@@ -15,13 +15,19 @@ namespace BeerSales.Api.Endpoints.BreweryEndpoints
                 .WithTags(EndpointConstant.Tag);
         }
 
-        private static async Task<IResult> GetAllBreweriesWithBeersAsync(IMediator mediator, int pageNumber, int sizeNumber)
+        private static async Task<IResult> GetAllBreweriesWithBeersAsync(
+            IMediator mediator, 
+            int pageNumber, 
+            int sizeNumber, 
+            CancellationToken cancellationToken)
         {
-            var response = await mediator.Send(new GetAllBreweriesWithBeersQuery
+            var command = new GetAllBreweriesWithBeersQuery() with
             {
                 PageNumber = pageNumber,
                 PageSize = sizeNumber
-            });
+            };   
+
+            var response = await mediator.Send(command, cancellationToken);
 
             return Results.Ok(response);
         }

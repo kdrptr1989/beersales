@@ -31,13 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BeerSales.Core\BeerSales.Core.csproj" />
+    <ProjectReference Include="..\BeerSales.Core\BeerSales.Core.csproj" />
     <ProjectReference Include="..\BeerSales.Infrastructure\BeerSales.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\WholesalerEndpoints\" />
-    <Folder Include="Endpoints\StockEndpoints\" />
+    <Folder Include="Endpoints\OrderEndpoints\" />
   </ItemGroup>
 
 </Project>
