@@ -16,9 +16,9 @@ Demo project for Brewery and Wholesaler management
 Unit tests
 - XUnit
 - NSubstitute
-
-- Dockerfile & Docker-compose
-   - SQL Server
+ 
+Dockerfile & Docker-compose
+   - Launch SQL Server in docker compose, image: mcr.microsoft.com/mssql/server:2019-latest
 
 Future plan:
 - Use Automapper
