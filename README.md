@@ -1,7 +1,8 @@
 # BeerSale project
 Demo project for Brewery and Wholesaler management
 
-You can find the specifications here :https://github.com/kdrptr1989/beersales/blob/master/Test%20Specifications%20-%20Brewery%20and%20wholesale%20management.pdf
+You can find the specifications here: 
+- https://github.com/kdrptr1989/beersales/blob/master/Test%20Specifications%20-%20Brewery%20and%20wholesale%20management.pdf
 
 #Technology stack
 - .NET 6 - Minimal api
