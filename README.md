@@ -3,7 +3,7 @@ Demo project for Brewery and Wholesaler management
 
 #Technology stack
 - .NET 6 - Minimal api
-    - record types
+    - Record types for Domain objects and Data Transfer Objects
     - Built-in ILogger
 - CQRS design pattern with MediatR
 - Apply CleanArchitecture solution with Api, Core, Domain, Infrastructure, tests projects 
