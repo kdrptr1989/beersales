@@ -1,5 +1,4 @@
 ﻿using BeerSale.Infrastructure;
-using BeerSales.Core.Beer.Commands;
 using BeerSales.Core.Beer.Dto;
 using BeerSales.Core.Beers.Queries.Dto;
 using BeerSales.Infrastructure.Interfaces;
